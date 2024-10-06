@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Gilroy:wght@400;700&display=swap');
+
+body {
+  background-image: linear-gradient(135deg, #43CBFF 10%, #9708CC 100%);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.app-container {
+  font-family: 'Gilroy', Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-image: linear-gradient(-225deg, #FF057C 0%, #8D0B93 50%, #321575 100%);
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: block;
+  width: 35px;
+  height: 4px;
+  background-color: white;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before {
+  top: -10px;
+}
+
+.hamburger::after {
+  bottom: -10px;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-link {
+  font-family: 'Gilroy', Arial, sans-serif;
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  margin: 0 0.3rem;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-image: linear-gradient(-225deg, #FF057C 0%, #8D0B93 50%, #321575 100%);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .navbar-menu.is-active {
+    max-height: 400px;
+  }
+
+  .nav-link {
+    padding: 1.2rem;
+    font-size: 1.3rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.navbar-menu.is-active {
+  animation: fadeIn 0.4s ease, slideDown 0.4s ease;
+}
+
+:root {
+    --spinner-diameter: 35rem;
+    --spinner-3d-perspective: 1000px;
+    --spinner-font-family: 'Roboto Mono', monospace;
+    --spinner-font-weight: 700;
+    --spinner-font-size: 11rem;
+    --spinner-font-color-outer-rbg: 233, 225, 224;
+    --spinner-font-color-inner-rbg-from: rgb(217, 94, 39);
+    --spinner-font-color-inner-rbg-to: rgb(255, 182, 68);
+    --spinner-animation-duration-outer: 10s;
+    --spinner-animation-duration-inner: 6s;
+    --spinner-controls-diameter: 256rem;
+    --spinner-control-bg-color: transparent;
+    --spinner-control-bg-hover-color: transparent;
+    --spinner-control-start-rotation: 0;
+    --spinner-transition-user-duration: 1000ms;
+    --spinner-transition-user-ease: ease;
+}
+
+@property --spinner-font-color-inner {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgb(217, 94, 39);
+}
+
+/*
+global
+*/
+@import url(//fonts.googleapis.com/css?family=Roboto+Mono);
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: radial-gradient(rgb(23, 23, 21), #000000);
+    overflow: hidden;
+}
+
+/*
+spinner
+*/
+.spinner {
+    --_control-diamater: var(--spinner-controls-diameter);
+    --_control-radius: calc(var(--_control-diamater) * 0.5);
+    --_current-rotation: var(--spinner-control-start-rotation);
+    --_font-size: var(--spinner-font-size);
+    --_character-diameter: calc(var(--spinner-font-size) * 0.66);
+    --_diameter: var(--spinner-diameter);
+    --_radius: calc(var(--_diameter) * 0.5);
+    --_z: calc(var(--_radius) * -1);
+    --_rotate-x-to: 360deg;
+    width: var(--_diameter);
+    height: var(--_diameter);
+    perspective: var(--spinner-3d-perspective);
+    font-family: var(--spinner-font-family);
+    font-weight: var(--spinner-font-weight);
+    font-size: var(--_font-size);
+    position: relative;
+    /* overflow: hidden; */
+    opacity: 0;
+    animation: spinner-intro forwards 1s ease-out;
+}
+
+@keyframes spinner-intro {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@media only screen and (max-width: 50rem) {
+    .spinner {
+        --_font-size: calc(var(--spinner-font-size) * 0.75);
+        --_diameter: calc(var(--spinner-diameter) * 0.75);
+    }
+}
+
+@media only screen and (max-width: 38rem) {
+    .spinner {
+        --_font-size: calc(var(--spinner-font-size) * 0.6);
+        --_diameter: calc(var(--spinner-diameter) * 0.6);
+    }
+}
+
+@media only screen and (max-width: 30rem) {
+    .spinner {
+        --_font-size: calc(var(--spinner-font-size) * 0.25);
+        --_diameter: calc(var(--spinner-diameter) * 0.25);
+    }
+}
+
+@media only screen and (max-width: 15rem) {
+    .spinner {
+        --_font-size: calc(var(--spinner-font-size) * 0.1);
+        --_diameter: calc(var(--spinner-diameter) * 0.1);
+    }
+}
+
+.spinner .spinner-control-button {
+    --_width: var(--_control-radius);
+    --_height: calc(var(--_control-diamater) * 3.141592653589793 / var(--_num-controls) + 10px);
+    --_theta-start: 0;
+    --_theta-length: calc(2 * 3.141592653589793);
+    --_segment: calc(var(--_theta-start) + var(--index) / var(--_num-controls) * var(--_theta-length));
+    --_x: calc(var(--_radius) - var(--_control-radius) + var(--_control-radius) * cos(var(--_segment)));
+    --_y: calc(var(--_radius) - var(--_control-radius) + var(--_control-radius) * sin(var(--_segment)) + var(--_control-radius) - var(--_height) / 2);
+    --_rotation: calc(var(--index) / var(--_num-controls) * 360deg);
+    position: absolute;
+    left: var(--_x);
+    top: var(--_y);
+    width: var(--_width);
+    height: var(--_height);
+    clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+    transform-origin: right center;
+    transform: rotate(var(--_rotation));
+    background-color: var(--spinner-control-bg-color);
+}
+
+.spinner .spinner-control-button input {
+    -webkit-appearance: none;
+    appearance: none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.spinner .spinner-control-button:has(input:hover) {
+    background-color: var(--spinner-control-bg-hover-color);
+}
+
+.spinner:has(.spinner-control-button:nth-child(1) input:hover) {
+    --_current-rotation: 108;
+}
+.spinner:has(.spinner-control-button:nth-child(2) input:hover) {
+    --_current-rotation: 126;
+}
+.spinner:has(.spinner-control-button:nth-child(3) input:hover) {
+    --_current-rotation: 144;
+}
+.spinner:has(.spinner-control-button:nth-child(4) input:hover) {
+    --_current-rotation: 162;
+}
+.spinner:has(.spinner-control-button:nth-child(5) input:hover) {
+    --_current-rotation: 180;
+}
+.spinner:has(.spinner-control-button:nth-child(6) input:hover) {
+    --_current-rotation: 198;
+}
+.spinner:has(.spinner-control-button:nth-child(7) input:hover) {
+    --_current-rotation: 216;
+}
+.spinner:has(.spinner-control-button:nth-child(8) input:hover) {
+    --_current-rotation: 234;
+}
+.spinner:has(.spinner-control-button:nth-child(9) input:hover) {
+    --_current-rotation: 252;
+}
+.spinner:has(.spinner-control-button:nth-child(10) input:hover) {
+    --_current-rotation: 270;
+}
+.spinner:has(.spinner-control-button:nth-child(11) input:hover) {
+    --_current-rotation: 288;
+}
+.spinner:has(.spinner-control-button:nth-child(12) input:hover) {
+    --_current-rotation: 306;
+}
+.spinner:has(.spinner-control-button:nth-child(13) input:hover) {
+    --_current-rotation: 324;
+}
+.spinner:has(.spinner-control-button:nth-child(14) input:hover) {
+    --_current-rotation: 342;
+}
+.spinner:has(.spinner-control-button:nth-child(15) input:hover) {
+    --_current-rotation: 0;
+}
+.spinner:has(.spinner-control-button:nth-child(16) input:hover) {
+    --_current-rotation: 18;
+}
+.spinner:has(.spinner-control-button:nth-child(17) input:hover) {
+    --_current-rotation: 36;
+}
+.spinner:has(.spinner-control-button:nth-child(18) input:hover) {
+    --_current-rotation: 54;
+}
+.spinner:has(.spinner-control-button:nth-child(19) input:hover) {
+    --_current-rotation: 72;
+}
+.spinner:has(.spinner-control-button:nth-child(20) input:hover) {
+    --_current-rotation: 90;
+}
+
+.spinner .spinner-control-button:has(input:hover) ~ .spinner-user-rotation {
+    transform: rotate(calc(calc(var(--_current-rotation) - 90) * 1deg));
+    --_rotate-x-to: 0deg;
+}
+
+.spinner .spinner-user-rotation {
+    width: inherit;
+    height: inherit;
+    transform-style: preserve-3d;
+    pointer-events: none;
+    transform: rotate(calc(var(--_current-rotation) * 1deg));
+    transition: transform var(--spinner-transition-user-duration) var(--spinner-transition-user-ease);
+}
+
+.spinner .spinner-text-wrapper {
+    width: inherit;
+    height: inherit;
+    animation: spinner-rotation-outer var(--spinner-animation-duration-outer) reverse linear infinite running,
+                spinner-rotation-color calc(var(--spinner-animation-duration-outer) * 0.5) reverse linear infinite running;
+    transform: translateZ(var(--_z));
+    transform-style: inherit;
+}
+
+.spinner .spinner-text {
+    width: inherit;
+    height: inherit;
+    list-style-type: none;
+    position: relative;
+    transform-style: inherit;
+    animation: spinner-rotation-inner var(--spinner-animation-duration-inner) reverse linear infinite running;
+}
+
+@keyframes spinner-rotation-color {
+    /* doesn't work on firefox: */
+    /* 0%, 100% {--spinner-font-color-inner: var(--spinner-font-color-inner-rbg-from);}
+    50% {--spinner-font-color-inner: var(--spinner-font-color-inner-rbg-to);} */
+    /* ugly workaround */
+    0%, 100% {--spinner-font-color-inner: rgb(217, 94, 39);}
+    50% {--spinner-font-color-inner: rgb(255, 182, 68);}
+}
+
+@keyframes spinner-rotation-outer {
+    from {transform: translateZ(var(--_z)) rotateX(0deg);}
+    to {transform: translateZ(var(--_z)) rotateX(var(--_rotate-x-to));}
+    /* try other variants: */
+    /* from {transform: translateZ(var(--_z)) rotateX(0deg);}
+    to {transform: translateZ(var(--_z)) rotateX(360deg);} */
+    /* from {transform: translateZ(var(--_z)) rotateY(0deg) rotateX(0deg);}
+    to {transform: translateZ(var(--_z)) rotateY(360deg) rotateX(var(--_rotate-x-to));} */
+    /* from {transform: translateZ(var(--_z)) rotateY(0deg) rotateX(0deg);}
+    to {transform: translateZ(var(--_z)) rotateY(360deg) rotateX(360deg);} */
+}
+
+@keyframes spinner-rotation-inner {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(360deg);}
+}
+
+.spinner .spinner-character {
+    --_width: var(--_character-diameter);
+    --_height: var(--_character-diameter);
+    --_rotation: calc(360 / var(--_num-characters) * var(--_index) * 1deg);
+    position: absolute;
+    left: calc(var(--_radius) - var(--_character-diameter) / 2);
+    top: calc(var(--_radius) - var(--_character-diameter) / 2);
+    transform: rotateY(var(--_rotation)) translateZ(var(--_radius));
+    transform-style: inherit;
+    width: var(--_width);
+    height: var(--_height);
+}
+
+.spinner .spinner-character::before, 
+.spinner .spinner-character::after {
+    content: attr(data-character);
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner.inner-reverse .spinner-character::before,
+.spinner.inner-reverse .spinner-character::after {
+    backface-visibility: hidden;
+}
+
+.spinner .spinner-character::before {
+    /* transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg) translateZ(-1px); */
+    transform: rotateY(180deg) rotateZ(180deg) rotateX(180deg);
+    /* transform: rotateY(0deg) rotateZ(180deg) translateZ(calc(var(--_diameter) * -1)); */
+    /* transform: rotateY(180deg) rotateZ(180deg); */
+    color: var(--spinner-font-color-inner);
+}
+
+.spinner .spinner-character::after {
+    backface-visibility: hidden;
+    transform: rotateY(0deg);
+    color: rgb(var(--spinner-font-color-outer-rbg)); 
+}
+
+.spinner.inner-reverse .spinner-character::before {
+    transform: rotateY(180deg) rotateZ(180deg);
+}
+
+
+@keyframes scale-up {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes floating {
+  from {
+    transform: translate(0, 0);
+  }
+  65% {
+    transform: translate(0, 1rem);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 10px;
+  }
+}
